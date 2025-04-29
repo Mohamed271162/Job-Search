@@ -19,7 +19,7 @@ const protectedRoutes = catchError(async (req, res, next) => {
   if (!token) return next(new AppError("token not provided", 401));
 
   // Verify the token using the secret key
-  jwt.verify(token, "menna", (err, payload) => {
+  jwt.verify(token, "mohamed", (err, payload) => {
     if (err) return next(new AppError("Invalid token", 401));
 
     // Check if the payload contains the user ID

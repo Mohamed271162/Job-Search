@@ -1,9 +1,8 @@
-import { connect } from "mongoose";
+import mongoose from 'mongoose'
 
-export const dbConn = connect("mongodb://localhost:27017/Jop_Search")
-  .then(() => {
-    console.log("Database connected");
-  })
-  .catch(() => {
-    console.log("Database error");
-  });
+export const connectionDB = async () => {
+  return await mongoose
+    .connect(process.env.CONNECTION_DB_URL)
+    .then((res) => console.log('DB connection success'))
+    .catch((err) => console.log('DB connection Fail', err))
+}

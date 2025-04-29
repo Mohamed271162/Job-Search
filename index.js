@@ -6,22 +6,23 @@ import { AppError } from "./utils/appError.js";
 import { User } from "./database/models/user.models.js";
 import { bootstrap } from "./src/modules/bootstrap.js";
 import cors from "cors";
-import { dbConn } from "./database/dbConnection.js";
 import dotenv from "dotenv";
 import express from "express";
 import { globalError } from "./src/middleware/globalError.js";
 import jwt from "jsonwebtoken";
+import path from 'path'
+import { config } from "dotenv";
+import {connectionDB} from "./database/dbConnection.js"
 
-
-dotenv.config();
+config({ path: path.resolve('./config/config.env') })
 const app = express();
 
 app.use("/uploads", express.static("uploads"));
 
 app.use(express.json());
 app.use(cors());
-const port = process.env.port || 3000;
-
+const port = process.env.PORT || 3000;
+connectionDB()
 bootstrap(app);
 
 app.get("/verify/:token", async (req, res, next) => {
